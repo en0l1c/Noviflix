@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- change color logic for dark/light theme to themes.xml -->
+    <color name="black">#FFFFFF</color>
+    <color name="white">#000000</color>
+    <color name="gray">#B0B0B0</color>
+    <color name="red">#FF0000</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="yellow">#FFA500</color>
+</resources>

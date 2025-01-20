@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Noviflix</string>
+    <string name="movie_poster">Movie Poster</string>
+    <string name="delete_movie">DELETE</string>
+    <string name="edit_movie">EDIT MOVIE</string>
+    <string name="add_movie">ADD MOVIE</string>
+    <string name="update_movie">UPDATE MOVIE</string>
+    <string name="choose_action">Choose an Action</string>
+</resources>
