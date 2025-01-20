@@ -1,7 +1,7 @@
 # Noviflix Android App
 
 ## Description
-Noviflix is a modern application designed to provide [brief description of the app's functionality, e.g., "secure communication," "unique user experience"].
+Noviflix is a modern application designed to provide movie info from a specific API.
 
 ## Development Details
 The application was developed and tested on a **Google Pixel 8a** to ensure compatibility and smooth performance on modern devices.
