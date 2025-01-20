@@ -3,6 +3,8 @@ package com.enolic.noviflix.tools;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.DiffUtil;
 import com.enolic.noviflix.AddUpdateMovieActivity;
@@ -22,7 +24,7 @@ public class MovieUtils {
         Call<Movie> call = movieApiService.getMovieById(movieId);
         call.enqueue(new Callback<Movie>() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
+            public void onResponse(@NonNull Call<Movie> call, @NonNull Response<Movie> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     // callback.accept(response.body());
                     onSuccess.accept(response.body()); // this is the fetchedMovie (it returns the movie/fetchedmovie throught Consumer)
@@ -32,7 +34,7 @@ public class MovieUtils {
             }
 
             @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
+            public void onFailure(@NonNull Call<Movie> call, @NonNull Throwable t) {
                 ErrorHandler.handleFailure(t, context, "MovieUtils -> fetchMovieById");
             }
         });
@@ -42,7 +44,7 @@ public class MovieUtils {
         Call<List<Movie>> call = movieApiService.getMovies();
         call.enqueue(new Callback<List<Movie>>() {
             @Override
-            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+            public void onResponse(@NonNull Call<List<Movie>> call, @NonNull Response<List<Movie>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Movie> newMovies = response.body();
 
@@ -55,7 +57,7 @@ public class MovieUtils {
                     movieList.addAll(newMovies);
 
                     // if the list is eempty or it changed call notifyDataSetChanged
-                    if (movieList.isEmpty() || diffResult == null) {
+                    if (movieList.isEmpty()) {
                         adapter.notifyDataSetChanged();
                     } else {
                         diffResult.dispatchUpdatesTo(adapter);
@@ -66,7 +68,7 @@ public class MovieUtils {
             }
 
             @Override
-            public void onFailure(Call<List<Movie>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Movie>> call, @NonNull Throwable t) {
                 ErrorHandler.handleFailure(t, context, "MovieUtils -> fetchMovies");
             }
         });
@@ -77,7 +79,7 @@ public class MovieUtils {
         Call<Movie> call = movieApiService.getRandomMovie();
         call.enqueue(new Callback<Movie>() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
+            public void onResponse(@NonNull Call<Movie> call, @NonNull Response<Movie> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     onSuccess.accept(response.body());
                 } else {
@@ -86,7 +88,7 @@ public class MovieUtils {
             }
 
             @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
+            public void onFailure(@NonNull Call<Movie> call, @NonNull Throwable t) {
                 ErrorHandler.handleFailure(t, context, "MovieUtils -> fetchRandomMovie");
             }
         });
@@ -99,7 +101,7 @@ public class MovieUtils {
         Call<Movie> call = movieApiService.addMovie(movie);
         call.enqueue(new Callback<Movie>() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
+            public void onResponse(@NonNull Call<Movie> call, @NonNull Response<Movie> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(context, "Movie added successfully!", Toast.LENGTH_SHORT).show();
                     if (onAddSuccess != null) {
@@ -111,7 +113,7 @@ public class MovieUtils {
             }
 
             @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
+            public void onFailure(@NonNull Call<Movie> call, @NonNull Throwable t) {
                 ErrorHandler.handleFailure(t, context, "MovieUtils -> addMovie");
             }
         });
@@ -129,7 +131,7 @@ public class MovieUtils {
         Call<Void> call = movieApiService.updateMovie(movie.getId(), movie);
         call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(context, "Movie updated successfully!", Toast.LENGTH_SHORT).show();
                     if (onUpdateSuccess != null) onUpdateSuccess.run();
@@ -139,7 +141,7 @@ public class MovieUtils {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 ErrorHandler.handleFailure(t, context, "MovieUtils -> updateMovie");
             }
         });
@@ -150,7 +152,7 @@ public class MovieUtils {
         Call<Void> call = movieApiService.deleteMovie(movieId);
         call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(context, "Movie deleted successfully!", Toast.LENGTH_SHORT).show();
                     if (onDeleteSuccess != null) {
@@ -162,7 +164,7 @@ public class MovieUtils {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 ErrorHandler.handleFailure(t, context, "MovieUtils -> deleteMovie");
             }
         });

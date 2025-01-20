@@ -6,4 +6,6 @@
     <string name="add_movie">ADD MOVIE</string>
     <string name="update_movie">UPDATE MOVIE</string>
     <string name="choose_action">Choose an Action</string>
+    <string name="director">Director: %s</string>
+    <string name="plot">Plot: %s</string>
 </resources>

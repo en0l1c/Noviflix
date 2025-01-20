@@ -95,7 +95,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         String plot = movie.getPlot() != null ? movie.getPlot() : "No plot available";
 
         titleTextView.setText(title);
-        directorTextView.setText("Director: " + director);
+        directorTextView.setText(getString((R.string.director), director));
         plotTextView.setText(plot);
     }
 

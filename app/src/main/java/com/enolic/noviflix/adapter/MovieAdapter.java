@@ -4,16 +4,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.enolic.noviflix.R;
 import com.enolic.noviflix.model.Movie;
+import com.enolic.noviflix.tools.MovieDiffCallback;
+
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-    private List<Movie> movies;
-    private OnMovieClickListener onMovieClickListener;
-    private OnMovieLongClickListener onMovieLongClickListener;
+    private final List<Movie> movies;
+    private final OnMovieClickListener onMovieClickListener;
+    private final OnMovieLongClickListener onMovieLongClickListener;
 
     public interface OnMovieClickListener {
         void onMovieClick(Movie movie);
@@ -43,7 +48,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         }
     }
 
+    // update data with DiffUtil
+    public void updateMovies(List<Movie> newMovies) {
+        // calculate diff with MovieDiffCallback
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MovieDiffCallback(movies, newMovies));
+
+        // update the list with new data
+        movies.clear();
+        movies.addAll(newMovies);
+
+        // apply changes to RecyclerView
+        diffResult.dispatchUpdatesTo(this);
+    }
+
+
+
+
     @Override
+    @NonNull
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
         return new MovieViewHolder(view);
@@ -58,8 +80,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         Movie movie = movies.get(position);
 
         holder.titleTextView.setText(movie.getTitle());
-        holder.directorTextView.setText("Director: " + movie.getDirector());
-        holder.plotTextView.setText("Plot: " + movie.getPlot());
+        holder.directorTextView.setText(
+                holder.itemView.getContext().getString(R.string.director, movie.getDirector())
+        );
+        holder.plotTextView.setText(
+                holder.itemView.getContext().getString(R.string.plot, movie.getPlot())
+        );
 
         holder.itemView.setOnClickListener(v -> onMovieClickListener.onMovieClick(movie));
 

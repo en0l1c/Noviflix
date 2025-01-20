@@ -18,7 +18,7 @@ public class AddUpdateMovieActivity extends AppCompatActivity {
     private MovieApiService movieApiService;
     private EditText titleInput, directorInput, plotInput;
     private Button actionButton;
-    private Movie movieToEdit;
+    private Movie movieToEdit; // if its not declared globally the activity will be broken, TODO: make it local
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

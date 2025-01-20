@@ -19,10 +19,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView; // to display the movies list
+//    private RecyclerView recyclerView; // to display the movies list
     private MovieAdapter adapter; // manages the appearance and the interactions of each movie
     private MovieApiService movieApiService;
-    private List<Movie> movies = new ArrayList<>();
+    private final List<Movie> movies = new ArrayList<>();
 
     // because onActivityResult is deprecated. they are required for management returned data from other Activities
     private ActivityResultLauncher<Intent> addMovieLauncher;
@@ -32,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        RecyclerView recyclerView; // to display the movies list
+
 
 
         // initialize of ActivityResultLaunchers (it activates addMovieLauncher/updateMovieLauncher)
@@ -106,9 +109,16 @@ public class MainActivity extends AppCompatActivity {
                         String movieId = data.getStringExtra("MOVIE_ID");
 
                         if (deletedMovieId != null) {
-                            // manage deleted movie
-                            movies.removeIf(movie -> movie.getId().equals(deletedMovieId));
-                            adapter.notifyDataSetChanged();
+//                            // manage deleted movie
+//                            movies.removeIf(movie -> movie.getId().equals(deletedMovieId));
+//                            adapter.notifyDataSetChanged();
+
+                            // create a list without the deleted movie
+                            List<Movie> updatedMovies = new ArrayList<>(movies);
+                            updatedMovies.removeIf(movie -> movie.getId().equals(deletedMovieId));
+
+                            // update the adapter with DiffUtil
+                            adapter.updateMovies(updatedMovies);
                         } else if (movieId != null) {
                             // manage updated movie
                             fetchMovieById(movieId);
@@ -158,8 +168,11 @@ public class MainActivity extends AppCompatActivity {
     // show actions for each movie if user pressed long on a movie_item
     private void onMovieLongClicked(Movie movie) {
         MovieUtils.showMovieActions(this, movie, movieApiService, () -> {
-            movies.remove(movie);
-            adapter.notifyDataSetChanged();
+//            movies.remove(movie);
+//            adapter.notifyDataSetChanged();
+            // use fetchMovies to load the list from the backend
+            MovieUtils.fetchMovies(this, movieApiService, movies, adapter);
+
         });
     }
 

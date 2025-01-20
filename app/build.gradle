@@ -21,8 +21,8 @@ android {
 
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
-            debuggable true
+//            applicationIdSuffix ".debug"
+//            debuggable true
             buildConfigField "String", "BASE_URL", "\"$System.env.DEBUG_BASE_URL\""
         }
         release {
