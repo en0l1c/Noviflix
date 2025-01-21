@@ -18,7 +18,7 @@ The application was developed and tested on a **Google Pixel 8a** to ensure comp
    ```xml
    <network-security-config>
        <domain-config cleartextTrafficPermitted="true">
-           <domain includeSubdomains="true">[your_domain]</domain>
+           <domain includeSubdomains="true">example.com</domain>
        </domain-config>
    </network-security-config>
 
