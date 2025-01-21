@@ -22,7 +22,7 @@ The application was developed and tested on a **Google Pixel 8a** to ensure comp
        </domain-config>
    </network-security-config>
 
-2. **Setting the System Variable `DEBUG_BASE_URL` **
+2. **Setting the System Variable `DEBUG_BASE_URL`**
 To ensure the `build.gradle` configuration works correctly, you must add the following environment variable to your system:
 
 - **Variable Name:** `DEBUG_BASE_URL`  
