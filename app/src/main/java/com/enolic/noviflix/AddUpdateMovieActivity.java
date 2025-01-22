@@ -2,8 +2,11 @@ package com.enolic.noviflix;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +34,16 @@ public class AddUpdateMovieActivity extends AppCompatActivity {
         directorInput = findViewById(R.id.movie_director_input);
         plotInput = findViewById(R.id.movie_plot_input);
         actionButton = findViewById(R.id.submit_movie_button);
+
+        // for remaining character:
+        TextView titleRemaining = findViewById(R.id.movie_title_remaining);
+        TextView directorRemaining = findViewById(R.id.movie_director_remaining);
+        TextView plotRemaining = findViewById(R.id.movie_plot_remaining);
+
+        addCharacterCountWatcher(titleInput, titleRemaining, 255);
+        addCharacterCountWatcher(directorInput, directorRemaining, 255);
+        addCharacterCountWatcher(plotInput, plotRemaining, 255);
+
 
         // check if the user is editing or adding a movie from getting the intent
         movieToEdit = (Movie) getIntent().getSerializableExtra("MOVIE_DETAILS");
@@ -91,5 +104,21 @@ public class AddUpdateMovieActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    private void addCharacterCountWatcher(EditText editText, TextView textView, int maxChars) {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int remaining = maxChars - s.length();
+                textView.setText(remaining + " characters remaining");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 }
