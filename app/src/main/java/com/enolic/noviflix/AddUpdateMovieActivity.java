@@ -110,7 +110,7 @@ public class AddUpdateMovieActivity extends AppCompatActivity {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
+            // while text is changing
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int remaining = maxChars - s.length();

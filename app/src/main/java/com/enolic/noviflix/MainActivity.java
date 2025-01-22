@@ -16,6 +16,8 @@ import com.enolic.noviflix.tools.MovieUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView; // to display the movies list
 
 
-
         // initialize of ActivityResultLaunchers (it activates addMovieLauncher/updateMovieLauncher)
         setupActivityResultLaunchers();
 
@@ -52,6 +53,19 @@ public class MainActivity extends AppCompatActivity {
                 this::onMovieLongClicked
         );
         recyclerView.setAdapter(adapter);
+
+        // SwipeRefreshLayout
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            // fetchMovies from MovieUtils to reload movie list
+            MovieUtils.fetchMovies(this, movieApiService, movies, adapter);
+
+            // it stops the animation when the refresh is done
+            swipeRefreshLayout.setRefreshing(false);
+        });
+
+        // Retrofit setup
+        setupRetrofit();
 
         // it creates the movieApiService through Retrofit. also when connect to the server gets movies list
         setupRetrofit();
