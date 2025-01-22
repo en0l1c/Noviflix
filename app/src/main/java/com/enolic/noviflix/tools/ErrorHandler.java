@@ -28,6 +28,9 @@ public class ErrorHandler {
 
         // Manage status codes
         switch (statusCode) {
+            case 400:
+                Toast.makeText(context, "All the fiels are required!", Toast.LENGTH_SHORT).show();
+                break;
             case 401:
                 Toast.makeText(context, "Unauthorized! Please login again.", Toast.LENGTH_SHORT).show();
                 break;
@@ -36,6 +39,9 @@ public class ErrorHandler {
                 break;
             case 404:
                 Toast.makeText(context, "Not Found! The requested resource doesn't exist.", Toast.LENGTH_SHORT).show();
+                break;
+            case 409:
+                Toast.makeText(context, "This title already exist. Try something else!", Toast.LENGTH_SHORT).show();
                 break;
             case 429:
                 Toast.makeText(context, "Too Many Requests! Slow down and try again later.", Toast.LENGTH_SHORT).show();

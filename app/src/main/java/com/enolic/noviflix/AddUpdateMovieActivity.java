@@ -114,7 +114,11 @@ public class AddUpdateMovieActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int remaining = maxChars - s.length();
-                textView.setText(remaining + " characters remaining");
+
+                // remaining to String
+                String remainingText = editText.getContext().getString(R.string.characters_remaining, remaining);
+
+                textView.setText(remainingText);
             }
 
             @Override
