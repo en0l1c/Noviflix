@@ -21,9 +21,28 @@ android {
 
     buildTypes {
         debug {
+
 //            applicationIdSuffix ".debug"
 //            debuggable true
-            buildConfigField "String", "BASE_URL", "\"$System.env.DEBUG_BASE_URL\""
+            /** loading system variable from windows */
+//            buildConfigField "String", "BASE_URL", "\"$System.env.DEBUG_BASE_URL \""
+
+            /** loading system variable from linux - I didnt know other way to make it work **/
+            /** TODO: ask for a solution **/
+            // load local.properties
+            def localProperties = new Properties()
+            def localPropertiesFile = rootProject.file("local.properties")
+            if (localPropertiesFile.exists()) {
+                localProperties.load(new FileInputStream(localPropertiesFile))
+            }
+
+            // update DEBUG_BASE_URL
+            def debugBaseUrl = localProperties.getProperty("DEBUG_BASE_URL")
+            println "DEBUG_BASE_URL from local.properties: $debugBaseUrl"
+
+//            buildConfigField "String", "BASE_URL", "\"${System.getenv("DEBUG_BASE_URL") ?: debugBaseUrl}\""
+            buildConfigField "String", "BASE_URL", "\"${System.env.DEBUG_BASE_URL ?: debugBaseUrl}\""
+
         }
         release {
             // use safest url for production
