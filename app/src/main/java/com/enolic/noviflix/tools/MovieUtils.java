@@ -103,7 +103,9 @@ public class MovieUtils {
             @Override
             public void onResponse(@NonNull Call<Movie> call, @NonNull Response<Movie> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(context, "Movie added successfully!", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Movie added successfully!", Toast.LENGTH_SHORT).show();
+                    SuccessHandler.handleSuccess(response.code(), "add", context); // success code
+
                     if (onAddSuccess != null) {
                         onAddSuccess.run(); // update after the addition
                     }
@@ -133,7 +135,9 @@ public class MovieUtils {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(context, "Movie updated successfully!", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Movie updated successfully!", Toast.LENGTH_SHORT).show();
+                    SuccessHandler.handleSuccess(response.code(), "update", context); // success code
+
                     if (onUpdateSuccess != null) onUpdateSuccess.run();
                 } else {
                     ErrorHandler.handleError(response, context, "MovieUtils -> updateMovie");
@@ -154,7 +158,8 @@ public class MovieUtils {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(context, "Movie deleted successfully!", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Movie deleted successfully!", Toast.LENGTH_SHORT).show();
+                    SuccessHandler.handleSuccess(response.code(), "delete", context); // success code
                     if (onDeleteSuccess != null) {
                         onDeleteSuccess.run(); // callback after deletion
                     }

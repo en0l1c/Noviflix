@@ -9,4 +9,14 @@
     <string name="director">Director: %s</string>
     <string name="plot">Plot: %s</string>
     <string name="characters_remaining">%1$d characters remaining</string>
+
+
+
+    <!-- success messages (TODO: the same for error messages) -->
+    <string name="success_movie_added">The movie was successfully added!</string>
+    <string name="success_movie_updated">The movie was successfully updated!</string>
+    <string name="success_movie_deleted">The movie was successfully deleted!</string>
+    <string name="success_action_completed">Action completed successfully!</string>
+    <string name="success_default">Action completed successfully! Code: %1$d</string>
+
 </resources>
