@@ -40,6 +40,9 @@ public class ErrorHandler {
             case 404:
                 Toast.makeText(context, "Not Found! The requested resource doesn't exist.", Toast.LENGTH_SHORT).show();
                 break;
+            case 408:
+                Toast.makeText(context, "The request took too long. Please try again.", Toast.LENGTH_SHORT).show();
+                break;
             case 409:
                 Toast.makeText(context, "This title already exist. Try something else!", Toast.LENGTH_SHORT).show();
                 break;
@@ -48,6 +51,9 @@ public class ErrorHandler {
                 break;
             case 500:
                 Toast.makeText(context, "Server error. Try again later.", Toast.LENGTH_SHORT).show();
+                break;
+            case 503:
+                Toast.makeText(context, "The server is currently unavailable. Please try again later.", Toast.LENGTH_LONG).show();
                 break;
             default:
                 Toast.makeText(context, "Unexpected Error: " + statusCode + ". Please try again.", Toast.LENGTH_SHORT).show();
