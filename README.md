@@ -8,6 +8,7 @@ Noviflix is a modern application designed to provide movie information by consum
 - **Primary Device Used:** Google Pixel 8a
 - **Minimum SDK:** 24
 - **Target SDK:** 35
+- **AGP:** 8.8
 
 The app was developed and tested to ensure compatibility and smooth performance on modern devices. It uses dynamic build configurations to adapt to development and production environments.
 
