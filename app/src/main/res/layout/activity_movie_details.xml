@@ -13,6 +13,73 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+<!--        &lt;!&ndash; Movie Details Card &ndash;&gt;-->
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/card_view_details"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:cardCornerRadius="12dp"-->
+<!--            app:cardElevation="6dp"-->
+<!--            app:cardUseCompatPadding="true"-->
+<!--            android:layout_marginBottom="16dp">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="16dp">-->
+
+<!--                &lt;!&ndash; movie poster &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/movie_details_image"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="200dp"-->
+<!--                    android:layout_marginBottom="16dp"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:contentDescription="@string/movie_poster"-->
+<!--                    android:src="@drawable/default_movie_poster_2" />-->
+
+<!--                &lt;!&ndash; movie title &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/movie_details_title"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textSize="24sp"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:textColor="@android:color/darker_gray" />-->
+
+<!--                &lt;!&ndash; director &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/movie_details_director"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textStyle="italic"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:textColor="@android:color/darker_gray" />-->
+
+<!--                &lt;!&ndash; plot &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/movie_details_plot"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:lineSpacingExtra="4dp"-->
+<!--                    android:textColor="@android:color/darker_gray" />-->
+
+<!--                &lt;!&ndash; release year &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/movie_details_releaseYear"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:lineSpacingExtra="4dp"-->
+<!--                    android:textColor="@android:color/darker_gray" />-->
+<!--            </LinearLayout>-->
+<!--        </androidx.cardview.widget.CardView>-->
+
+
         <!-- Movie Details Card -->
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_details"
@@ -26,47 +93,66 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:padding="16dp">
 
-                <!-- movie poster -->
+                <!-- Movie Poster (Left Side) -->
                 <ImageView
                     android:id="@+id/movie_details_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_width="120dp"
+                    android:layout_height="180dp"
+                    android:layout_marginEnd="16dp"
                     android:scaleType="centerCrop"
                     android:contentDescription="@string/movie_poster"
                     android:src="@drawable/default_movie_poster_2" />
 
-                <!-- movie title -->
-                <TextView
-                    android:id="@+id/movie_details_title"
-                    android:layout_width="match_parent"
+                <!-- Movie Info (Right Side) -->
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
-                    android:layout_marginBottom="8dp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <!-- director -->
-                <TextView
-                    android:id="@+id/movie_details_director"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="italic"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="8dp"
-                    android:textColor="@android:color/darker_gray" />
+                    <!-- Movie Title -->
+                    <TextView
+                        android:id="@+id/movie_details_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="24sp"
+                        android:layout_marginBottom="8dp"
+                        android:textColor="@android:color/darker_gray" />
 
-                <!-- plot -->
-                <TextView
-                    android:id="@+id/movie_details_plot"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:lineSpacingExtra="4dp"
-                    android:textColor="@android:color/darker_gray" />
+
+                    <!-- Director -->
+                    <TextView
+                        android:id="@+id/movie_details_director"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:textColor="@android:color/darker_gray" />
+
+                    <!-- Release Year -->
+<!--                    <TextView-->
+<!--                        android:id="@+id/movie_details_releaseYear"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="8dp"-->
+<!--                        android:textColor="@android:color/darker_gray" />-->
+
+                    <!-- Plot -->
+                    <TextView
+                        android:id="@+id/movie_details_plot"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="4dp"
+                        android:textColor="@android:color/darker_gray" />
+                </LinearLayout>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

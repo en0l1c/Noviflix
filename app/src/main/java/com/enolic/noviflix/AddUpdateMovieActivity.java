@@ -19,7 +19,7 @@ import com.enolic.noviflix.tools.MovieUtils;
 public class AddUpdateMovieActivity extends AppCompatActivity {
 
     private MovieApiService movieApiService;
-    private EditText titleInput, directorInput, plotInput;
+    private EditText titleInput, directorInput, plotInput, releaseYearInput, imageUrlInput;
     private Button actionButton;
     private Movie movieToEdit; // if its not declared globally the activity will be broken, TODO: make it local
 
@@ -33,16 +33,20 @@ public class AddUpdateMovieActivity extends AppCompatActivity {
         titleInput = findViewById(R.id.movie_title_input);
         directorInput = findViewById(R.id.movie_director_input);
         plotInput = findViewById(R.id.movie_plot_input);
+        releaseYearInput = findViewById(R.id.movie_releaseYear_input);
+        imageUrlInput = findViewById(R.id.movie_imageUrl_input);
         actionButton = findViewById(R.id.submit_movie_button);
 
         // for remaining character:
         TextView titleRemaining = findViewById(R.id.movie_title_remaining);
         TextView directorRemaining = findViewById(R.id.movie_director_remaining);
         TextView plotRemaining = findViewById(R.id.movie_plot_remaining);
+        TextView imageUrlRemaining = findViewById(R.id.movie_imageUrl_remaining);
 
         addCharacterCountWatcher(titleInput, titleRemaining, 255);
         addCharacterCountWatcher(directorInput, directorRemaining, 255);
         addCharacterCountWatcher(plotInput, plotRemaining, 255);
+        addCharacterCountWatcher(imageUrlInput, imageUrlRemaining, 255);
 
 
         // check if the user is editing or adding a movie from getting the intent
@@ -64,9 +68,16 @@ public class AddUpdateMovieActivity extends AppCompatActivity {
             String title = titleInput.getText().toString().trim();
             String director = directorInput.getText().toString().trim();
             String plot = plotInput.getText().toString().trim();
+            int releaseYear;
+            try {
+                releaseYear = Integer.parseInt(releaseYearInput.getText().toString().trim());
+            } catch (NumberFormatException e) {
+                releaseYear = 0;
+            }
+            String imageUrl = imageUrlInput.getText().toString().trim();
 
-            if (validateInput(title, director, plot)) {
-                Movie newMovie = new Movie(null, title, director, plot);
+            if (validateInput(title, director, plot, releaseYear)) {
+                Movie newMovie = new Movie(null, title, director, plot, releaseYear, imageUrl);
                 MovieUtils.addMovie(this, newMovie, movieApiService, () -> {
                     setResult(RESULT_OK);
                     finish();
@@ -79,15 +90,24 @@ public class AddUpdateMovieActivity extends AppCompatActivity {
         titleInput.setText(movie.getTitle());
         directorInput.setText(movie.getDirector());
         plotInput.setText(movie.getPlot());
+        releaseYearInput.setText(String.valueOf(movie.getReleaseYear()));
+        imageUrlInput.setText(movie.getImageUrl());
         actionButton.setText(R.string.update_movie);
 
         actionButton.setOnClickListener(v -> {
             String title = titleInput.getText().toString().trim();
             String director = directorInput.getText().toString().trim();
             String plot = plotInput.getText().toString().trim();
+            int releaseYear;
+            try {
+                releaseYear = Integer.parseInt(releaseYearInput.getText().toString().trim());
+            } catch (NumberFormatException e) {
+                releaseYear = 0;
+            }
+            String imageUrl = imageUrlInput.getText().toString().trim();
 
-            if (validateInput(title, director, plot)) {
-                Movie updatedMovie = new Movie(movie.getId(), title, director, plot);
+            if (validateInput(title, director, plot, releaseYear)) {
+                Movie updatedMovie = new Movie(movie.getId(), title, director, plot, releaseYear, imageUrl);
                 MovieUtils.updateMovie(this, updatedMovie, movieApiService, () -> {
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("UPDATED_MOVIE", updatedMovie); // it returns the updated movie
@@ -98,9 +118,13 @@ public class AddUpdateMovieActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateInput(String title, String director, String plot) {
+    private boolean validateInput(String title, String director, String plot, int releaseYear) {
         if (title.isEmpty() || director.isEmpty() || plot.isEmpty()) {
             Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (releaseYear <= 1880 || releaseYear >= 2025) {
+            Toast.makeText(this, "Not valid year!", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

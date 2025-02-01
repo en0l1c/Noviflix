@@ -8,6 +8,7 @@
     <string name="choose_action">Choose an Action</string>
     <string name="director">Director: %s</string>
     <string name="plot">Plot: %s</string>
+    <string name="releaseYear">RELEASED YEAR: %s</string>
     <string name="characters_remaining">%1$d characters remaining</string>
 
 
@@ -18,5 +19,6 @@
     <string name="success_movie_deleted">The movie was successfully deleted!</string>
     <string name="success_action_completed">Action completed successfully!</string>
     <string name="success_default">Action completed successfully! Code: %1$d</string>
+    <string name="releaseYearText"><![CDATA[1880 <= year <= 2025]]></string>
 
 </resources>

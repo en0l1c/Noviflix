@@ -3,6 +3,7 @@ package com.enolic.noviflix;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -11,6 +12,7 @@ import com.enolic.noviflix.api.ApiClient;
 import com.enolic.noviflix.api.MovieApiService;
 import com.enolic.noviflix.model.Movie;
 import com.enolic.noviflix.tools.MovieUtils;
+import com.bumptech.glide.Glide;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
@@ -78,7 +80,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     fetchedMovie.getId(),
                     fetchedMovie.getTitle() != null ? fetchedMovie.getTitle() : "No title available",
                     fetchedMovie.getDirector() != null ? fetchedMovie.getDirector() : "Unknown director",
-                    fetchedMovie.getPlot() != null ? fetchedMovie.getPlot() : "No plot available"
+                    fetchedMovie.getPlot() != null ? fetchedMovie.getPlot() : "No plot available",
+                    fetchedMovie.getReleaseYear() > 0 ? fetchedMovie.getReleaseYear() : -1,
+                    fetchedMovie.getImageUrl() != null ? fetchedMovie.getImageUrl() : "No image url"
             );
             updateUI(movie); // update the ui to use the latest new movie data
         });
@@ -88,15 +92,29 @@ public class MovieDetailsActivity extends AppCompatActivity {
         TextView titleTextView = findViewById(R.id.movie_details_title);
         TextView directorTextView = findViewById(R.id.movie_details_director);
         TextView plotTextView = findViewById(R.id.movie_details_plot);
+//        TextView releaseYearView = findViewById(R.id.movie_details_releaseYear);
+        ImageView movieImageView = findViewById(R.id.movie_details_image);
 
         // verify data before display them
         String title = movie.getTitle() != null ? movie.getTitle() : "No title available";
         String director = movie.getDirector() != null ? movie.getDirector() : "Unknown director";
         String plot = movie.getPlot() != null ? movie.getPlot() : "No plot available";
+        String releaseYear = movie.getReleaseYear() > 0 ? String.valueOf(movie.getReleaseYear()) : "Unknown Year";
+        String imageUrl = movie.getImageUrl() != null ? movie.getImageUrl() : "";
 
-        titleTextView.setText(title);
+        String titleWithYear = title + " (" + releaseYear + ")";
+        titleTextView.setText(titleWithYear);
+//        titleTextView.setText(title);
         directorTextView.setText(getString((R.string.director), director));
         plotTextView.setText(plot);
+//        releaseYearView.setText(releaseYear);
+
+        // movie image
+        Glide.with(this)
+                .load(imageUrl)
+                .placeholder(R.drawable.default_movie_poster_2)
+                .error(R.drawable.default_movie_poster_2)
+                .into(movieImageView);
     }
 
     private void deleteMovie(String movieId) {

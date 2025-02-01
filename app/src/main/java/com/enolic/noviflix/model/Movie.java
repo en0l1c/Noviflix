@@ -14,13 +14,18 @@ public class Movie implements Serializable {
     private String director; // Added director
     @SerializedName("plot")
     private String plot; // Added plot
-    //You can add genre and year if your api has them
+    @SerializedName("releaseYear")
+    private int releaseYear;
+    @SerializedName("url") // image url
+    private String imageUrl;
 
-    public Movie(String id, String title, String director, String plot) {
+    public Movie(String id, String title, String director, String plot, int releaseYear, String imageUrl) {
         this.id = id;
         this.title = title;
         this.director = director;
         this.plot = plot;
+        this.releaseYear = releaseYear;
+        this.imageUrl = imageUrl;
     }
 
     public String getId() {
@@ -38,4 +43,8 @@ public class Movie implements Serializable {
     public String getPlot() {
         return plot;
     }
+
+    public int getReleaseYear() { return releaseYear; }
+
+    public String getImageUrl() { return imageUrl; }
 }

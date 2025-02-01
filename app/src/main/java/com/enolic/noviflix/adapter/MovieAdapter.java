@@ -3,8 +3,9 @@ package com.enolic.noviflix.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.bumptech.glide.Glide;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +39,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public TextView titleTextView;
         public TextView directorTextView;
         public TextView plotTextView;
+        public TextView releaseYearTextView;
+        public ImageView movieImageView;
 
         // itemView is the root of the LinearLayout and other views are inside LinearLayout
         public MovieViewHolder(View itemView) {
@@ -45,6 +48,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             titleTextView = itemView.findViewById(R.id.movie_title);
             directorTextView = itemView.findViewById(R.id.movie_director);
             plotTextView = itemView.findViewById(R.id.movie_plot);
+//            releaseYearTextView = itemView.findViewById(R.id.movie_releaseYear);
+            movieImageView = itemView.findViewById(R.id.movie_image);
         }
     }
 
@@ -79,15 +84,25 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         Movie movie = movies.get(position);
 
-        holder.titleTextView.setText(movie.getTitle());
+        String titleWithYear = movie.getTitle() + " (" + movie.getReleaseYear() + ")";
+        holder.titleTextView.setText(titleWithYear);
+//        holder.titleTextView.setText(movie.getTitle());
         holder.directorTextView.setText(
                 holder.itemView.getContext().getString(R.string.director, movie.getDirector())
         );
         holder.plotTextView.setText(
                 holder.itemView.getContext().getString(R.string.plot, movie.getPlot())
         );
-
+//        holder.releaseYearTextView.setText(
+//                holder.itemView.getContext().getString(R.string.releaseYear, movie.getReleaseYear())
+//        );
         holder.itemView.setOnClickListener(v -> onMovieClickListener.onMovieClick(movie));
+        // glide for image
+        Glide.with(holder.itemView.getContext())
+                        .load(movie.getImageUrl()) // url of image
+                        .placeholder(R.drawable.default_movie_poster_2)
+                        .error(R.drawable.default_movie_poster_2)
+                        .into(holder.movieImageView);
 
         holder.itemView.setOnLongClickListener(v -> {
             onMovieLongClickListener.onMovieLongClick(movie);
@@ -100,3 +115,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movies.size();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
