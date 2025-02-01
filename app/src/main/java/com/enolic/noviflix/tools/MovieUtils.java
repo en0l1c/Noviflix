@@ -2,6 +2,8 @@ package com.enolic.noviflix.tools;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,7 +42,7 @@ public class MovieUtils {
         });
     }
 
-    public static void fetchMovies(Context context, MovieApiService movieApiService, List<Movie> movieList, MovieAdapter adapter) {
+    public static void fetchMovies(Context context, MovieApiService movieApiService, List<Movie> movieList, MovieAdapter adapter, LinearLayout errorLayout) {
         Call<List<Movie>> call = movieApiService.getMovies();
         call.enqueue(new Callback<List<Movie>>() {
             @Override
@@ -62,17 +64,25 @@ public class MovieUtils {
                     } else {
                         diffResult.dispatchUpdatesTo(adapter);
                     }
+                    // Απόκρυψη error UI αν η φόρτωση πετύχει
+                    errorLayout.setVisibility(View.GONE);
                 } else {
                     ErrorHandler.handleError(response, context, "MovieUtils -> fetchMovies");
+
+                    // Εμφάνιση error UI αν η φόρτωση αποτύχει
+                    errorLayout.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Movie>> call, @NonNull Throwable t) {
                 ErrorHandler.handleFailure(t, context, "MovieUtils -> fetchMovies");
+                // Εμφάνιση error UI
+                errorLayout.setVisibility(View.VISIBLE);
             }
         });
     }
+
 
 
     public static void fetchRandomMovie(Context context, MovieApiService movieApiService, Consumer<Movie> onSuccess) {

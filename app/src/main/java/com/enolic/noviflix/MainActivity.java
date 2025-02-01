@@ -6,6 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.enolic.noviflix.adapter.MovieAdapter;
@@ -30,10 +36,28 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> addMovieLauncher;
     private ActivityResultLauncher<Intent> updateMovieLauncher;
 
+    // error UI elements
+    private LinearLayout errorLayout;
+//    private TextView errorMessage;
+//    private ImageView errorImage;
+    private Button retryButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        errorLayout = findViewById(R.id.error_layout);
+//        errorMessage = findViewById(R.id.error_message);
+        retryButton = findViewById(R.id.retry_button);
+
+        retryButton.setOnClickListener(v -> {
+            errorLayout.setVisibility(View.GONE); // hide error message
+            MovieUtils.fetchMovies(MainActivity.this, movieApiService, movies, adapter, errorLayout);
+            Toast.makeText(this, "Retrying..", Toast.LENGTH_SHORT).show();
+        });
+
+
 
         RecyclerView recyclerView; // to display the movies list
 
@@ -58,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             // fetchMovies from MovieUtils to reload movie list
-            MovieUtils.fetchMovies(this, movieApiService, movies, adapter);
+            MovieUtils.fetchMovies(this, movieApiService, movies, adapter, errorLayout);
 
             // it stops the animation when the refresh is done
             swipeRefreshLayout.setRefreshing(false);
@@ -71,7 +95,9 @@ public class MainActivity extends AppCompatActivity {
         setupRetrofit();
 
         // call fetchMovies from MovieUtils to get the movies and then refresh movie list (recyclerView)
-        MovieUtils.fetchMovies(this, movieApiService, movies, adapter);
+//        MovieUtils.fetchMovies(this, movieApiService, movies, adapter);
+        MovieUtils.fetchMovies(this, movieApiService, movies, adapter, errorLayout);
+
     }
 
     private void setupRetrofit() {
@@ -86,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.action_home) {
                 // refresh movie list
-                MovieUtils.fetchMovies(this, movieApiService, movies, adapter);
+                MovieUtils.fetchMovies(this, movieApiService, movies, adapter, errorLayout);
                 return true;
             } else if (id == R.id.action_shuffle) {
                 fetchRandomMovie();
@@ -107,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         // refresh the movie list
-                        MovieUtils.fetchMovies(this, movieApiService, movies, adapter);
+                        MovieUtils.fetchMovies(this, movieApiService, movies, adapter, errorLayout);
                     }
                 }
         );
@@ -185,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
 //            movies.remove(movie);
 //            adapter.notifyDataSetChanged();
             // use fetchMovies to load the list from the backend
-            MovieUtils.fetchMovies(this, movieApiService, movies, adapter);
+            MovieUtils.fetchMovies(this, movieApiService, movies, adapter, errorLayout);
 
         });
     }
@@ -200,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // refresh the movie list
-        MovieUtils.fetchMovies(this, movieApiService, movies, adapter); // Refresh movies
+        MovieUtils.fetchMovies(this, movieApiService, movies, adapter, errorLayout); // Refresh movies
         Log.d("MainActivity", "onResume: Activity resumed, refreshing data");
 
         // select the right action button

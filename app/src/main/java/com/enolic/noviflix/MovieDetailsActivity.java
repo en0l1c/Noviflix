@@ -81,7 +81,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     fetchedMovie.getTitle() != null ? fetchedMovie.getTitle() : "No title available",
                     fetchedMovie.getDirector() != null ? fetchedMovie.getDirector() : "Unknown director",
                     fetchedMovie.getPlot() != null ? fetchedMovie.getPlot() : "No plot available",
-                    fetchedMovie.getReleaseYear() > 0 ? fetchedMovie.getReleaseYear() : -1,
+                    fetchedMovie.getReleaseYear() > 0 ? fetchedMovie.getReleaseYear() : -1, //TODO: change this
                     fetchedMovie.getImageUrl() != null ? fetchedMovie.getImageUrl() : "No image url"
             );
             updateUI(movie); // update the ui to use the latest new movie data

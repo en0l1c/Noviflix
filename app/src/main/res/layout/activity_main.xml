@@ -13,6 +13,37 @@
 <!--        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
 <!--        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
 
+    <!-- linear layout for error message-->
+    <LinearLayout
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:elevation="10dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Failed to load. Please try again.\nNote: the server is sleeping and it want at least 50s to wake."
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:padding="8dp" />
+
+        <Button
+            android:id="@+id/retry_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Try Again"
+            android:padding="8dp" />
+    </LinearLayout>
+
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
