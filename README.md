@@ -61,7 +61,7 @@ The `build.gradle` dynamically sets the base URL for API calls using a system en
       - **Value:** `http://your_debug_api_base_url/`
 
 2. **For Linux**
-   - Add the following to your `~/.bashrc` or `~/.zshrc` file:
+   - Add the following to your `~/.bashrc` or `~/.zshrc` or `~/.profile` file:
      ```bash
      export DEBUG_BASE_URL="http://your_debug_api_base_url/"
      ```
