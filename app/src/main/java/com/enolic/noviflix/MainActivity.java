@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         setupRetrofit();
 
         // it creates the movieApiService through Retrofit. also when connect to the server gets movies list
-        setupRetrofit();
+        //setupRetrofit();
 
         // call fetchMovies from MovieUtils to get the movies and then refresh movie list (recyclerView)
 //        MovieUtils.fetchMovies(this, movieApiService, movies, adapter);
