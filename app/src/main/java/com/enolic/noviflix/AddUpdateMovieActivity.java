@@ -71,8 +71,13 @@ public class AddUpdateMovieActivity extends AppCompatActivity {
             int releaseYear;
             try {
                 releaseYear = Integer.parseInt(releaseYearInput.getText().toString().trim());
+                if (releaseYear < 1880 || releaseYear > 2025) {
+                    releaseYearInput.setError("Year must be between 1880 and 2025");
+                    return;
+                }
             } catch (NumberFormatException e) {
-                releaseYear = 0;
+                releaseYearInput.setError("Please enter a valid year");
+                return;
             }
             String imageUrl = imageUrlInput.getText().toString().trim();
 
@@ -101,8 +106,13 @@ public class AddUpdateMovieActivity extends AppCompatActivity {
             int releaseYear;
             try {
                 releaseYear = Integer.parseInt(releaseYearInput.getText().toString().trim());
+                if (releaseYear < 1880 || releaseYear > 2025) {
+                    releaseYearInput.setError("Year must be between 1880 and 2025");
+                    return;
+                }
             } catch (NumberFormatException e) {
-                releaseYear = 0;
+                releaseYearInput.setError("Please enter a valid year");
+                return;
             }
             String imageUrl = imageUrlInput.getText().toString().trim();
 
